@@ -32,6 +32,7 @@
                           exit 64
                         fi
                       '' ;
+                    pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
                     test =
                       {
                         lib =
@@ -42,7 +43,6 @@
 		    _utils = builtins.getAttr system utils.lib ;
                     in
                       let
-                        pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
                         in
                           [
                             ( tester : tester ( testee : builtins.head ( builtins.attrNames ( testee implementation test ) ) ) true "devShell" )
