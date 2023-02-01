@@ -24,6 +24,7 @@
 		            happy1 = tester : tester ( testee : builtins.head ( builtins.attrNames ( testee implementation test ) ) ) true "devShell" ;
 		            happy2 = tester : tester ( testee : builtins.attrNames ( testee implementation test ) ) true [ "devShell" ] ;
 		            happy3 = tester : tester ( testee : builtins.typeOf ( testee implementation test ) ) true "set" ;
+		            happy4 = tester : tester ( testee : testee implementation test ) true { devShell = pkgs.mkShell { } ; } ;
 		          } ;
 	      }
 	  ) ;
