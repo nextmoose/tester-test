@@ -21,8 +21,8 @@
 		        pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
 			in
 		          {
-		            happy1 = tester : tester "6be2b381-e0e6-4041-9de1-4627c573874d" ( testee : builtins.head ( builtins.attrNames ( testee implementation test ) ) ) true "devShell" ;
-		            happy2 = tester : tester "a85d55b4-1c6d-4591-8e5f-2d34c14183a9" ( testee : builtins.attrNames ( testee implementation test ) ) true [ "devShell" ] ;
+		            happy1 = tester : tester ( testee : builtins.head ( builtins.attrNames ( testee implementation test ) ) ) true "devShell" ;
+		            happy2 = tester : tester ( testee : builtins.attrNames ( testee implementation test ) ) true [ "devShell" ] ;
 		          } ;
 	      }
 	  ) ;
