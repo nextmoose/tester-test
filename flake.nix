@@ -2,7 +2,7 @@
     inputs =
       {
         flake-utils.url = "github:numtide/flake-utils?rev=5aed5285a952e0b949eb3ba02c12fa4fcfef535f" ;
-	nixpkgs.url = "github:nixos/nixpkgs?rev=57eac89459226f3ec743ffa6bbbc1042f5836843" ;
+        nixpkgs.url = "github:nixos/nixpkgs?rev=57eac89459226f3ec743ffa6bbbc1042f5836843" ;
         utils.url = "github:nextmoose/utils" ;
       } ;
     outputs =
@@ -40,7 +40,7 @@
                             "${ system }" = null ;
                           } ;
                       } ;
-		    _utils = builtins.getAttr system utils.lib ;
+                    _utils = builtins.getAttr system utils.lib ;
                     in
                       let
                         in
@@ -51,7 +51,7 @@
                             ( tester : tester ( testee : builtins.typeOf ( builtins.getAttr "devShell" ( testee implementation test ) ) ) true "set" )
                             ( tester : tester ( testee : let x = builtins.typeOf ( builtins.head ( builtins.getAttr "buildInputs" ( builtins.getAttr "devShell" ( testee implementation test ) ) ) ) ; in builtins.trace x x ) true "set" )
                             ( tester : tester ( testee : let x = builtins.concatStringsSep "; " ( builtins.attrNames ( builtins.head ( builtins.getAttr "buildInputs" ( builtins.getAttr "devShell" ( testee implementation test ) ) ) ) ) ; in builtins.trace x x ) true "set" )
-			    ( tester : tester ( testee : let x = builtins.getAttr "text" ( builtins.head ( builtins.getAttr "buildInputs" ( builtins.getAttr "devShell" ( testee implementation test ) ) ) ) ; in builtins.trace x x ) true "devShell" )
+                            ( tester : tester ( testee : let x = builtins.getAttr "text" ( builtins.head ( builtins.getAttr "buildInputs" ( builtins.getAttr "devShell" ( testee implementation test ) ) ) ) ; in builtins.trace x x ) true pkgs.mkShell { buildInputs = [ script ] ; } )
                           ] ;
               }
           ) ;
