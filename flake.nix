@@ -50,7 +50,6 @@
                             ( tester : tester ( testee : builtins.typeOf ( testee implementation test ) ) true "set" )
                             ( tester : tester ( testee : builtins.typeOf ( builtins.getAttr "devShell" ( testee implementation test ) ) ) true "set" )
                             ( tester : tester ( testee : let x = builtins.typeOf ( builtins.head ( builtins.getAttr "buildInputs" ( builtins.getAttr "devShell" ( testee implementation test ) ) ) ) ; in builtins.trace x x ) true "set" )
-                            ( tester : tester ( testee : let x = builtins.concatStringsSep "; " ( builtins.attrNames ( builtins.head ( builtins.getAttr "buildInputs" ( builtins.getAttr "devShell" ( testee implementation test ) ) ) ) ) ; in builtins.trace x x ) true "set" )
                             ( tester : tester ( testee : let x = builtins.getAttr "text" ( builtins.head ( builtins.getAttr "buildInputs" ( builtins.getAttr "devShell" ( testee implementation test ) ) ) ) ; in builtins.trace x ( testee implementation test ) ) true ( pkgs.mkShell { buildInputs = [ script ] ; } ) )
                           ] ;
               }
