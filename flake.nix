@@ -6,7 +6,7 @@
         utils.url = "github:nextmoose/utils" ;
       } ;
     outputs =
-      { flake-utils , nixpkgs , self } :
+      { flake-utils , nixpkgs , self , utils } :
         flake-utils.lib.eachDefaultSystem
           (
             system :
