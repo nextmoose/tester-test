@@ -24,6 +24,7 @@
 		            happy1 = tester : tester "6be2b381-e0e6-4041-9de1-4627c573874d" ( testee : builtins.head ( builtins.attrNames ( testee implementation test ) ) ) true "devShell" ;
 		            happy2 = tester : tester "a85d55b4-1c6d-4591-8e5f-2d34c14183a9" ( testee : builtins.attrNames ( testee implementation test ) ) true [ "devShell" ] ;
 		            happy3 = tester : tester "b7f9625b-02c0-4b98-9b4b-0fefdd7d1640" ( testee : testee implementation test ) true { devShell = pkgs.mkShell { } ; } ;
+		            happy3 = tester : tester "d2385cdb-418e-42e5-8f74-8abe92ee5552" ( testee : testee implementation test ) false null ;
 		          } ;
 	      }
 	  ) ;
