@@ -31,6 +31,7 @@
                           ${ pkgs.coreutils }/bin/echo FAILURE== &&
                           exit 64
                         fi
+                        
                       '' ;
                     pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
                     test =
