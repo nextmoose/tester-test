@@ -3,29 +3,47 @@
     outputs =
       { flake-utils , nixpkgs , self } :
         flake-utils.lib.eachDefaultSystem
-	  (
-	    system :
-	      {
-	        lib =
-		  let
-		    implementation =
-		      {
-		        lib =
-			  {
-		            "${ system }" = null ;
-			  } ;
-		      } ;
-		      test = implementation ;
-		    in
-		      let
-		        pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
-			in
-		          [
-		            ( tester : tester ( testee : builtins.head ( builtins.attrNames ( testee implementation test ) ) ) true "devShell" )
-		            ( tester : tester ( testee : builtins.attrNames ( testee implementation test ) ) true [ "devShell" ] )
-		            ( tester : tester ( testee : builtins.typeOf ( testee implementation test ) ) true "set" )
-		            ( tester : tester ( testee : testee implementation test ) true { devShell = pkgs.mkShell { buildInputs = [ ] ; } ; } )
-		          ] ;
-	      }
-	  ) ;
+          (
+            system :
+              {
+                lib =
+                  let
+                    implementation =
+                      {
+                        lib =
+                          {
+                            "${ system }" = null ;
+                          } ;
+                      } ;
+                    script =
+                      ''
+                        if [ "" == "${ _utils.bash-variable "1" }" ]
+                        then
+                          ${ pkgs.coreutils }/bin/echo PASSED &&
+                          exit 0
+                        else
+                          ${ pkgs.coreutils }/bin/echo FAILED &&
+                          ${ pkgs.coreutils }/bin/echo FAILURE== &&
+                          exit 64
+                        fi
+                      '' ;
+                    test =
+                      {
+                        lib =
+                          {
+                            "${ system }" = null ;
+                          } ;
+                      } ;
+                    in
+                      let
+                        pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
+                        in
+                          [
+                            ( tester : tester ( testee : builtins.head ( builtins.attrNames ( testee implementation test ) ) ) true "devShell" )
+                            ( tester : tester ( testee : builtins.attrNames ( testee implementation test ) ) true [ "devShell" ] )
+                            ( tester : tester ( testee : builtins.typeOf ( testee implementation test ) ) true "set" )
+                            ( tester : tester ( testee : testee implementation test ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" script ) ] ; } ; } )
+                          ] ;
+              }
+          ) ;
   }
