@@ -45,10 +45,10 @@
                       let
                         in
                           [
-                            # ( tester : tester ( testee : builtins.head ( builtins.attrNames ( testee implementation test ) ) ) true "devShell" )
-                            # ( tester : tester ( testee : builtins.attrNames ( testee implementation test ) ) true [ "devShell" ] )
-                            # ( tester : tester ( testee : builtins.typeOf ( testee implementation test ) ) true "set" )
-                            # ( tester : tester ( testee : builtins.typeOf ( builtins.getAttr "devShell" ( testee implementation test ) ) ) true "set" )
+                            ( tester : tester ( testee : builtins.head ( builtins.attrNames ( testee implementation test ) ) ) true "devShell" )
+                            ( tester : tester ( testee : builtins.attrNames ( testee implementation test ) ) true [ "devShell" ] )
+                            ( tester : tester ( testee : builtins.typeOf ( testee implementation test ) ) true "set" )
+                            ( tester : tester ( testee : builtins.typeOf ( builtins.getAttr "devShell" ( testee implementation test ) ) ) true "set" )
                             ( tester : tester ( testee : testee implementation test ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" script ) ] ; } ; } )
                           ] ;
               }
