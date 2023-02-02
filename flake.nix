@@ -13,6 +13,13 @@
               {
                 lib =
                   let
+		    test-bad =
+		      {
+		        lib =
+			  {
+			    "${ system }" = builtins.throw "" ;
+			  } ;
+		      } ;
                     implementation =
                       {
                         lib =
@@ -50,6 +57,7 @@
                             ( tester : tester ( testee : builtins.typeOf ( testee implementation test ) ) true "set" )
                             ( tester : tester ( testee : builtins.typeOf ( builtins.getAttr "devShell" ( testee implementation test ) ) ) true "set" )
                             ( tester : tester ( testee : testee implementation test ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" script ) ] ; } ; } )
+                            ( tester : tester ( testee : testee implementation test-bad ) false null )
                           ] ;
               }
           ) ;
