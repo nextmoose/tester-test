@@ -17,7 +17,6 @@
 		      {
 		        lib =
 			  {
-			    "${ system }" = builtins.throw "" ;
 			  } ;
 		      } ;
                     implementation =
