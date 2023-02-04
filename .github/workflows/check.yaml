@@ -2,14 +2,6 @@ name: "Test"
 on:
   push:
 jobs:
-  env:
-    runs-on: ubuntu-latest
-    steps:
-    - run: env	
-  pwd:
-    runs-on: ubuntu-latest
-    steps:
-    - run: pwd
   precheck:
     runs-on: ubuntu-latest
     steps:
