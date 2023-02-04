@@ -2,6 +2,10 @@ name: "Test"
 on:
   push:
 jobs:
+  ls:
+    runs-on: ubuntu-latest
+    steps:
+    - run: find /home/runner/work/tester-test/tester-test
   env:
     runs-on: ubuntu-latest
     steps:
@@ -29,3 +33,9 @@ jobs:
         extra_nix_config: |
           access-tokens = github.com=${{ secrets.TOKEN }}
     - run: true # cd $( mktemp --directory ) && git init && git config user.name "No User" && git config user.email "noone@nothing" && nix flake init && sed -e "s#\${IMPLEMENTATION}#github:nextmoose/tester#" -e "s#\${TEST}#${GITHUB_WORKSPACE}#" -e "wflake.nix" /home/runner/work/tester/tester/.github/workflows/original.nix && git add flake.nix && git commit --all --allow-empty-message --message "" && cat flake.nix && nix develop --command check ""
+  versions:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - run: cat flake.lock | jq --raw-output '.root as $root | .nodes | to_entries | map ( if .value.original.type == "github" then null else .key end ) '
+
