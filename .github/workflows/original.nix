@@ -4,7 +4,7 @@
         flake-utils.url = "github:numtide/flake-utils?rev=5aed5285a952e0b949eb3ba02c12fa4fcfef535f" ;
 	implementation.url = "${IMPLEMENTATION}" ;
 	test.url = "${TEST}" ;
-	tester.url = "${TESTER}" ;
+	tester.url = "github:nextmoose/tester?rev=017cbb5099aaffd4e8b6c0c7e23c78f0edaa5b31" ;
       } ;
     outputs =
       { flake-utils , implementation , self , test , tester } :
