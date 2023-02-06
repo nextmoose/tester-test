@@ -13,6 +13,16 @@
               {
                 lib =
                   let
+		    bad =
+		      {
+		        test =
+			  {
+			    lib =
+			      {
+			        "${ system }" = null ;
+			      } ;
+			  } ;
+		      } ;
 		    good =
 		      {
                         implementation =
@@ -26,7 +36,7 @@
                           {
                             lib =
                               {
-                                "${ system }" = null ;
+                                "${ system }" = [ ] ;
                               } ;
                           } ;
 		      } ;
@@ -49,6 +59,7 @@
                         in
                           [
                             ( tester : tester ( testee : testee good.implementation good.test ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" script ) ] ; } ; } )
+                            ( tester : tester ( testee : testee good.implementation bad.test ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" script ) ] ; } ; } )
                           ] ;
               }
           ) ;
