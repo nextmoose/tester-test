@@ -13,20 +13,23 @@
               {
                 lib =
                   let
-		    test-bad =
+		    good =
 		      {
-		        lib =
-			  {
-			    "${ system }" = ( tester : tester ( testee : builtins.throw "" ) false null ) ;
-			  } ;
-		      } ;
-                    implementation =
-                      {
-                        lib =
+                        implementation =
                           {
-                            "${ system }" = null ;
+                            lib =
+                              {
+                                "${ system }" = null ;
+                              } ;
                           } ;
-                      } ;
+                        test =
+                          {
+                            lib =
+                              {
+                                "${ system }" = null ;
+                              } ;
+                          } ;
+		      } ;
                     script =
                       ''
                         if [ "" == "${ _utils.bash-variable "1" }" ]
@@ -40,24 +43,12 @@
                         fi
                       '' ;
                     pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
-                    test =
-                      {
-                        lib =
-                          {
-                            "${ system }" = null ;
-                          } ;
-                      } ;
                     _utils = builtins.getAttr system utils.lib ;
                     in
                       let
                         in
                           [
-                            ( tester : tester ( testee : builtins.head ( builtins.attrNames ( testee implementation test ) ) ) true "devShell" )
-                            ( tester : tester ( testee : builtins.attrNames ( testee implementation test ) ) true [ "devShell" ] )
-                            ( tester : tester ( testee : builtins.typeOf ( testee implementation test ) ) true "set" )
-                            ( tester : tester ( testee : builtins.typeOf ( builtins.getAttr "devShell" ( testee implementation test ) ) ) true "set" )
-                            ( tester : tester ( testee : testee implementation test ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" script ) ] ; } ; } )
-                            ( tester : tester ( testee : testee implementation test-bad ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" script ) ] ; } ; } )
+                            ( tester : tester ( testee : testee good.implementation good.test ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" script ) ] ; } ; } )
                           ] ;
               }
           ) ;
