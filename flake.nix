@@ -16,7 +16,7 @@
                     in
                       {
                         happy = lambda : lambda ( implementation : builtins.getAttr system implementation.lib { } ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "" ) ] ; } ; } ;
-                        sad = lambda : lambda ( implementation : builtins.getAttr system implementation.lib null ) null false ;
+                        sad = lambda : lambda ( implementation : builtins.getAttr system implementation.lib null ) false false ;
                       } ;
               }
           ) ;
