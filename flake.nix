@@ -15,7 +15,7 @@
                     pkgs = builtins.getAttr system nixpkgs.defaultPackages ;
                     in
                       {
-                        happy = lambda : lambda ( implementation : implementation [ ] ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "" ) ] ; } ; } ;
+                        happy = lambda : lambda ( implementation : implementation { } ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "" ) ] ; } ; } ;
                         sad = lambda : lambda ( implementation : implementation null ) null false ;
                       } ;
               }
