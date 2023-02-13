@@ -28,9 +28,16 @@
                     in
                       {
                         happy = tester : tester ( implementation : check implementation { } ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "" ) ] ; } ; } ;
-                        sad = tester : tester ( implementation : check implementation null ) false false ;
-                        string = tester : tester ( implementation : check implementation "" ) false false ;
-                      } ;
+                        sad =
+			  {
+			    bool = tester : tester ( implementation : check implementation true ) false false ;
+			    double = tester : tester ( implementation : check implementation 0.0 ) false false ;
+			    int = tester : tester ( implementation : check implementation 0 ) false false ;
+			    null = tester : tester ( implementation : check implementation null ) false false ;
+			    path = tester : tester ( implementation : check implementation ./flake.nix ) false false ;
+                            string = tester : tester ( implementation : check implementation "" ) false false ;
+                          } ;
+	              } ;
               }
           ) ;
   }
