@@ -29,6 +29,7 @@
                       {
                         happy = tester : tester ( implementation : check implementation { } ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "" ) ] ; } ; } ;
                         sad = tester : tester ( implementation : check implementation null ) false false ;
+                        string = tester : tester ( implementation : check implementation "" ) false false ;
                       } ;
               }
           ) ;
