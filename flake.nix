@@ -29,14 +29,18 @@
                       {
                         happy =
 			  {
-			    simple =
+			    empty =
 			      {
 			        list = tester : tester ( implementation : check implementation [ ] ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "" ) ] ; } ; } ;
 			        set = tester : tester ( implementation : check implementation { } ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "" ) ] ; } ; } ;
 			      } ;
-			    complex =
-			      {
-			      } ;
+			    singleton =
+			      let
+			        lambda = tester : tester ( implementation : check implementation { } ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "" ) ] ; } ; } ;
+			        in
+				  {
+			            list = tester : tester ( implementation : check implementation [ lambda ] ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "" ) ] ; } ; } ;
+				  } ;
 			  } ;
                         sad =
 			  {
