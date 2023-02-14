@@ -36,13 +36,17 @@
 			        lambda = good ;
                                 empty =
                                   {
-                                    list = tester : tester ( implementation : check implementation [ ] ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "" ) ] ; } ; } ;
-                                    set = tester : tester ( implementation : check implementation { } ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "" ) ] ; } ; } ;
+                                    list = tester : tester ( implementation : check implementation [ ] ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "${ pkgs.coreutils }/bin/echo " ) ] ; } ; } ;
+                                    set = tester : tester ( implementation : check implementation { } ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "${ pkgs.coreutils }/bin/echo " ) ] ; } ; } ;
                                   } ;
                                 singleton =
                                   {
-                                    list = tester : tester ( implementation : check implementation [ good ] ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "" ) ] ; } ; } ;
-                                    set = tester : tester ( implementation : check implementation { lambda = good; } ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "" ) ] ; } ; } ;
+                                    list = tester : tester ( implementation : check implementation [ good ] ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "${ pkgs.coreutils }/bin/echo " ) ] ; } ; } ;
+                                    set = tester : tester ( implementation : check implementation { lambda = good; } ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "${ pkgs.coreutils }/bin/echo " ) ] ; } ; } ;
+                                  } ;
+                                problem =
+                                  {
+                                    list = tester : tester ( implementation : check implementation { lambda = bad ; } ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "${ pkgs.coreutils }/bin/echo lambda" ) ] ; } ; } ;
                                   } ;
                               } ;
                         sad =
