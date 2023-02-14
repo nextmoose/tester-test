@@ -27,7 +27,17 @@
                     pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
                     in
                       {
-                        happy = tester : tester ( implementation : check implementation { } ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "" ) ] ; } ; } ;
+                        happy =
+			  {
+			    simple =
+			      {
+			        list = tester : tester ( implementation : check implementation [ ] ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "" ) ] ; } ; } ;
+			        set = tester : tester ( implementation : check implementation { } ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "" ) ] ; } ; } ;
+			      } ;
+			    complex =
+			      {
+			      } ;
+			  } ;
                         sad =
 			  {
 			    bool = tester : tester ( implementation : check implementation true ) false false ;
