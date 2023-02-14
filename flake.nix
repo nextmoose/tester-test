@@ -47,6 +47,7 @@
                                 problem =
                                   {
                                     lambda = tester : tester ( implementation : check implementation { lambda = bad ; } ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "${ pkgs.coreutils }/bin/echo lambda" ) ] ; } ; } ;
+                                    set = tester : tester ( implementation : check implementation { { alpha = { lambda = bad ; } ; } ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "${ pkgs.coreutils }/bin/echo alphalambda" ) ] ; } ; } ;
                                   } ;
                               } ;
                         sad =
