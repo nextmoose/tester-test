@@ -27,6 +27,7 @@
                     pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
                     in
                       {
+                        failure = tester : tester ( implementation : true ) true false ;
                         happy =
                           let
                             bad = tester : tester ( implementation : true ) true false ;
