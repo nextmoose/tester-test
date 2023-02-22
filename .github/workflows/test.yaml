@@ -1,0 +1,12 @@
+on:
+  push: 
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - runs: true
+name: test
+vars:
+  implementation: $IMPLEMENTATION
+  test: $TEST
+  tester: $TESTER
