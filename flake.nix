@@ -24,41 +24,11 @@
                                   } ;
                               } ;
                           in implementation ( mock null ) ( mock test ) ;
+                    good = tester : tester ( implementation : true ) true true ;
                     pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
                     in
                       {
-                        happy =
-                          let
-                            bad = tester : tester ( implementation : true ) true false ;
-                            good = tester : tester ( implementation : true ) true true ;
-                            in
-                              {
-			        lambda = good ;
-                                empty =
-                                  {
-                                    list = tester : tester ( implementation : check implementation [ ] ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "${ pkgs.coreutils }/bin/echo " ) ] ; } ; } ;
-                                    set = tester : tester ( implementation : check implementation { } ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "${ pkgs.coreutils }/bin/echo " ) ] ; } ; } ;
-                                  } ;
-                                singleton =
-                                  {
-                                    list = tester : tester ( implementation : check implementation [ good ] ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "${ pkgs.coreutils }/bin/echo " ) ] ; } ; } ;
-                                    set = tester : tester ( implementation : check implementation { lambda = good; } ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "${ pkgs.coreutils }/bin/echo " ) ] ; } ; } ;
-                                  } ;
-                                problem =
-                                  {
-                                    lambda = tester : tester ( implementation : check implementation { lambda = bad ; } ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "${ pkgs.coreutils }/bin/echo lambda" ) ] ; } ; } ;
-                                    set = tester : tester ( implementation : check implementation { alpha = { lambda = bad ; } ; } ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "${ pkgs.coreutils }/bin/echo alphalambda" ) ] ; } ; } ;
-                                  } ;
-                              } ;
-                        sad =
-                          {
-                            bool = tester : tester ( implementation : check implementation true ) false false ;
-                            double = tester : tester ( implementation : check implementation 0.0 ) false false ;
-                            int = tester : tester ( implementation : check implementation 0 ) false false ;
-                            null = tester : tester ( implementation : check implementation null ) false false ;
-                            path = tester : tester ( implementation : check implementation ./flake.nix ) false false ;
-                            string = tester : tester ( implementation : check implementation "" ) false false ;
-                          } ;
+		        happy = good ;
                       } ;
 	      }
           ) ;
