@@ -6,7 +6,7 @@ jobs:
     steps:
       - run: true
 name: test
-vars:
+var:
   implementation: $IMPLEMENTATION
   test: $TEST
   tester: $TESTER
