@@ -14,8 +14,7 @@
                     "test-init-main"
                     ''
 		      ${ pkgs.coreutils }/bin/echo ${ token } | ${ pkgs.gh }/bin/gh auth login --with-token &&
-		      ${ pkgs.coreutils }/bin/cat .github/workflows/test.yaml | ${ pkgs.yq }/bin/yq --yaml-output '.' &&
-		      ${ pkgs.coreutils }/bin/cat .github/workflows/test.yaml | ${ pkgs.yq }/bin/yq --yaml-output '. + ( { jobs : ( .jobs + ( { branch : { } } ) ) } )' &&
+		      ${ pkgs.coreutils }/bin/cat .github/workflows/test.yaml | ${ pkgs.yq }/bin/yq --yaml-output '. + ( { jobs : ( .jobs + ( { branch : ( .jobs.branch + ( { steps : [ ] } ) ) } ) ) } )' &&
 		      ${ pkgs.gh }/bin/gh auth logout --hostname github.com
                     ''
                 )
