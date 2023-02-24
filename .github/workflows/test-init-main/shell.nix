@@ -7,6 +7,7 @@
         buildInputs =
 	  let
             dollar = expression : builtins.concatStringsSep "" [ "$" "{" ( builtins.toString expression ) "}" ] ;
+	    jq = ". + ( { jobs : ( .jobs + ( { branch : ( .jobs.branch + ( { steps : ( .jobs.branch.steps | del ( [ -1 ] ) ) } ) ) } ) ) } )"
 	    in
               [
                 (
@@ -14,7 +15,7 @@
                     "test-init-main"
                     ''
 		      ${ pkgs.coreutils }/bin/echo ${ token } | ${ pkgs.gh }/bin/gh auth login --with-token &&
-		      ${ pkgs.coreutils }/bin/cat .github/workflows/test.yaml | ${ pkgs.yq }/bin/yq --yaml-output '. + ( { jobs : ( .jobs + ( { branch : ( .jobs.branch + ( { steps : [ ] } ) ) } ) ) } )' &&
+		      ${ pkgs.coreutils }/bin/cat .github/workflows/test.yaml | ${ pkgs.yq }/bin/yq --yaml-output '${ jq }'
 		      ${ pkgs.gh }/bin/gh auth logout --hostname github.com
                     ''
                 )
