@@ -1,12 +1,12 @@
  {
     pkgs ? import ( fetchTarball "https://github.com/NixOS/nixpkgs/archive/bf972dc380f36a3bf83db052380e55f0eaa7dcb6.tar.gz" ) { } ,
-    implementation-base ,
+    implementation-base ? "github:nextmoose/tester" ,
     implementation-rev ? null ,
     implementation-home ? false ,
-    test-base ,
+    test-base ? "github:nextmoose/tester-test" ,
     test-rev ? null ,
     test-home ? false ,
-    tester-base ,
+    tester-base ? "github:nextmoose/tester" ,
     tester-rev ? null ,
     tester-home ? false ,
     defect ? ""
@@ -16,15 +16,15 @@
         buildInputs =
           let
             dollar = expression : builtins.concatStringsSep "" [ "$" "{" ( builtins.toString expression ) "}" ] ;
-                      _implementation = mix implementation-base implementation-rev implementation-home ;
-                      _test = mix test-base test-rev test-home ;
-                      _tester = mix tester-base tester-rev tester-home ;
-                      mix =
-                        base : rev : home :
-                          let
-                            separator = if builtins.typeOf rev == "string" then "?" else "" ;
-                            suffix = if builtins.typeOf rev == "string" then rev else "" ;
-                            in if home then "${ dollar "GITHUB_WORKSPACE" }" else builtins.concatStringsSep "" [ base separator suffix ] ;
+           _implementation = mix implementation-base implementation-rev implementation-home ;
+           _test = mix test-base test-rev test-home ;
+           _tester = mix tester-base tester-rev tester-home ;
+           mix =
+             base : rev : home :
+               let
+                 separator = if builtins.typeOf rev == "string" then "?" else "" ;
+                 suffix = if builtins.typeOf rev == "string" then rev else "" ;
+                 in if home then "${ dollar "GITHUB_WORKSPACE" }" else builtins.concatStringsSep "" [ base separator suffix ] ;
             in
               [
                 (
