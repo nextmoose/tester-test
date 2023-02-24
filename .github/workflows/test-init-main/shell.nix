@@ -16,7 +16,7 @@
                     "test-init-main"
                     ''
 		      ${ pkgs.coreutils }/bin/echo ${ token } | ${ pkgs.gh }/bin/gh auth login --with-token &&
-		      TEMP=$( ${ pkgs.mktemp }/bin/mktemp --directory ) &&
+		      TEMP=$( ${ pkgs.mktemp }/bin/mktemp ) &&
 		      ${ pkgs.coreutils }/bin/cat .github/workflows/test.yaml | ${ pkgs.yq }/bin/yq --yaml-output '${ jq }' | ${ sed } ${ dollar "TEMP" } &&
 		      ${ pkgs.coreutils }/bin/cat ${ dollar "TEMP" } > .github/workflows/test.yaml &&
 		      ${ pkgs.coreutils }/bin/rm ${ dollar "TEMP" } &&
