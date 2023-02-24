@@ -25,9 +25,6 @@ jobs:
       - with:
           extra_nix_config: access-tokens = github.com = ${{ secrets.TOKEN }}
         uses: cachix/install-nix-action@v17
-      - run: "nix-shell .github/workflows/test-init-main/shell.nix --argstr token\
-          \ \"${{ secrets.TOKEN }}\" --argstr sed \"/nix/store/4r46xaa0zkql7dmf8ymhhpkqs9yd39df-gnused-4.8/bin/sed\
-          \ \\\n  -e \"s#on#on#\" \\\n  -e \"s###\"\
-          \ \\\n  -e \"s#with#with#\" \\\n  -e \"\
-          w${1}\"\n\" --command test-init-main"
+      - run: nix-shell .github/workflows/test-init-main/shell.nix --argstr token "${{
+          secrets.TOKEN }}" --command test-init-main
 name: test
