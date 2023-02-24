@@ -14,8 +14,8 @@
                     "branch"
                     ''
 		      TARGET="${ target }" &&
-		      ${ pkgs.git }/bin/git rev-parse HEAD &&
-		      if [[ "$( ${ pkgs.git }/bin/git rev-parse HEAD )" =~ "${ dollar "TARGET" }" ]]
+		      ${ pkgs.git }/bin/git branch --show-current &&
+		      if [[ "$( ${ pkgs.git }/bin/git branch --show-current )" =~ "${ dollar "TARGET" }" ]]
 		      then
 		        ${ pkgs.coreutils }/bin/echo GOOD
 		      else
