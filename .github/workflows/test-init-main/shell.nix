@@ -14,7 +14,7 @@
                     "test-init-main"
                     ''
 		      ${ pkgs.coreutils }/bin/echo ${ token } | ${ pkgs.gh }/bin/gh auth login --with-token &&
-		      ${ pkgs.gh }/bin/gh auth logout
+		      ${ pkgs.gh }/bin/gh auth logout --host-name github.com
                     ''
                 )
               ] ;
