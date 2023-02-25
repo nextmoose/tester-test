@@ -15,5 +15,6 @@ jobs:
           extra_nix_config: access-tokens = github.com = ${{ secrets.TOKEN }}
         uses: cachix/install-nix-action@v17
       - run: nix-shell .github/workflows/test-init-main/shell.nix --argstr token "${{
-          secrets.TOKEN }}" --command test-init-main
+          secrets.TOKEN }}" --argstr committer-user "${COMMITTER_USER}" --argstr committer-email
+          ${COMMITTER_EMAIL} --command test-init-main
 name: test
