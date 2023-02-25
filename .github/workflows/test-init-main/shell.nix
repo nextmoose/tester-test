@@ -20,7 +20,8 @@
 		      COMMIT_ID=$( ${ pkgs.git }/bin/git log origin/main..$( ${ pkgs.git }/bin/git branch --show-current ) --pretty=format:%H | ${ pkgs.coreutils }/bin/tail --lines 1 ) &&
 		      ${ pkgs.coreutils }/bin/echo "COMMIT_ID=${ dollar "COMMIT_ID" }" &&
 		      ${ pkgs.git }/bin/git checkout -b head/$( ${ pkgs.util-linux }/bin/uuidgen ) &&
-		      ${ pkgs.git }/bin/git fetch origin main &&
+		      ${ pkgs.git }/bin/git remote -v &&
+		      ${ pkgs.git }/bin/git fetch &&
 		      ${ pkgs.git }/bin/git reset --soft origin/main &&
 		      ${ pkgs.git }/bin/git config user.name "${ committer-user }" &&
 		      ${ pkgs.git }/bin/git config user.email ${ committer-email } &&
