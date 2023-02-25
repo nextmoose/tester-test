@@ -1,9 +1,5 @@
 on:
   push: 
-env:
-  implementation: $IMPLEMENTATION
-  test: $TEST
-  tester: $TESTER
 jobs:
   check:
     runs-on: ubuntu-latest
