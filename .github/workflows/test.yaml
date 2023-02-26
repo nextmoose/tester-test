@@ -1,8 +1,15 @@
-on:
-  push: 
 jobs:
   check:
-    runs-on: ubuntu-latest
-    steps:
-      - run: true
+    - uses: cachix/install-nix-action@v17
+      with:
+        extra_nix_config: access-tokens = github.com = ${secrets.TOKEN}
+    - run: nix-shell .github/workflows/check/shell.nix --arg test-home true --command
+        check
+  pre-check:
+    - uses: cachix/install-nix-action@v17
+      with:
+        extra_nix_config: access-tokens = github.com = ${secrets.TOKEN}
+    - run: nix-shell .github/workflows/check/shell.nix --command check
 name: test
+on:
+  push: 

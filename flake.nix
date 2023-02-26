@@ -24,12 +24,12 @@
                                   } ;
                               } ;
                           in implementation ( mock null ) ( mock test ) ;
-                    good = tester : tester ( implementation : true ) true true ;
+                    easy = tester : tester ( implementation : true ) true true ;
                     pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
                     in
                       {
-		        happy = good ;
+                        lambda = easy ;
                       } ;
-	      }
+              }
           ) ;
   }
