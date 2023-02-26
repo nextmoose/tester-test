@@ -25,11 +25,12 @@
                               } ;
                           in implementation ( mock null ) ( mock test ) ;
                     lambda = tester : tester ( implementation : true ) true true ;
-		    set = tester : tester ( implementation : implementation { } ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "" ) ] ; } ; } ;
+                    set = tester : tester ( implementation : implementation { } ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "" ) ] ; } ; } ;
                     pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
                     in
                       {
                         lambda = lambda ;
+                        set = set ;
                       } ;
               }
           ) ;
