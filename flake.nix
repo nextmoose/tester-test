@@ -24,12 +24,13 @@
                                   } ;
                               } ;
                           in implementation ( mock null ) ( mock test ) ;
-                    good = tester : tester ( implementation : true ) true true ;
+                    lambda = tester : tester ( implementation : true ) true true ;
+		    set = tester : tester ( implementation : implementation { } ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "" ) ] ; } ; } ;
                     pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
                     in
                       {
-		        happy = good ;
+                        lambda = lambda ;
                       } ;
-	      }
+              }
           ) ;
   }
