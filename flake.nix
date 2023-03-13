@@ -11,26 +11,10 @@
             system :
               {
                 lib =
-                  let
-                    check =
-                      implementation : test :
-                        let
-                          mock =
-                            contents :
-                              {
-                                lib =
-                                  {
-                                    "${ system }" = contents ;
-                                  } ;
-                              } ;
-                          in implementation ( mock null ) ( mock test ) ;
-                    lambda = tester : tester ( implementation : true ) true true ;
-                    set = tester : tester ( implementation : implementation { } ) true { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "" ) ] ; } ; } ;
-                    pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
-                    in
-                      {
-                        lambda = lambda ;
-                      } ;
+                  {
+                    pass = tester : tester ( implementation : true ) true true ;
+                    fail = tester : tester ( implementation : builtins.throw "35cfd89f-1b66-4fbf-a1ed-bfd6f4e0143e" ) false false ;
+                  } ;
               }
           ) ;
   }
